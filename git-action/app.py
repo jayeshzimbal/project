@@ -1,14 +1,18 @@
+from flask import Flask
 import datetime
 
-def main():
-    print("===================================")
-    print("  Python Application Deployment")
-    print("===================================")
-    print("Hello from Python ")
-    print("Status : Application is running")
-    print("Deployed using : GitHub Actions")
-    print("Time :", datetime.datetime.now())
-    print("===================================")
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return f"""
+    <h2>Python Application Deployment</h2>
+    <p>Hello from Python</p>
+    <p>Status : Application is running</p>
+    <p>Deployed using : GitHub Actions</p>
+    <p>Time : {datetime.datetime.now()}</p>
+    """
 
 if __name__ == "__main__":
-    main()
+    # Make it accessible publicly
+    app.run(host='0.0.0.0', port=5000)
