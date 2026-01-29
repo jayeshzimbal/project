@@ -10,19 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Deploy to EC2 Server
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            if [ ! -d "project" ]; then
-              git clone https://github.com/jayeshzimbal/project.git
-            fi
-            cd project
-            git pull
-            python3 app.py
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY }}
+        port: 22
+        script: |
+          # Navigate to your project folder
+          cd ~/project/project/git-action
+
+          # Activate virtual environment
+          source ../../venv/bin/activate
+
+          # Install Flask (in case it’s not installed)
+          pip install flask
+
+          # Run app in background
+          nohup python app.py &
