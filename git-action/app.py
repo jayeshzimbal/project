@@ -7,7 +7,7 @@ app = Flask(__name__)
 def home():
     return f"""
     <h2>Python Application Deployment</h2>
-    <p>Hello from Python</p>
+    <p>Hello from Python3</p>
     <p>Status : Application is running</p>
     <p>Deployed using : GitHub Actions</p>
     <p>Time : {datetime.datetime.now()}</p>
